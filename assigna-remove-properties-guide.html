@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Remove Properties – Assigna Solution</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --brand-dark:   #0d1b2a;
+      --brand-mid:    #1a3a5c;
+      --brand-accent: #2e86de;
+      --brand-light:  #e8f4fd;
+      --brand-white:  #ffffff;
+      --brand-muted:  #6b8cae;
+      --brand-line:   #d0e4f5;
+      --step-radius:  14px;
+      --card-shadow:  0 8px 32px rgba(13,27,42,.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f0f6fc;
+      color: var(--brand-dark);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--brand-dark);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,.25);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Logo placeholder – replace <img> src with actual logo */
+    .logo-img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .logo-text {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--brand-white);
+      letter-spacing: -.5px;
+    }
+
+    .logo-text span {
+      color: var(--brand-accent);
+    }
+
+    .header-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .78rem;
+      font-weight: 400;
+      color: var(--brand-muted);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO BAND ── */
+    .hero {
+      background: linear-gradient(135deg, var(--brand-mid) 0%, var(--brand-dark) 100%);
+      padding: 60px 48px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232e86de' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 760px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46,134,222,.15);
+      border: 1px solid rgba(46,134,222,.3);
+      border-radius: 100px;
+      padding: 5px 16px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: #7ec8f8;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: #7ec8f8;
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--brand-white);
+      line-height: 1.18;
+      margin-bottom: 16px;
+      letter-spacing: -.5px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--brand-accent);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #9bbdd8;
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* ── INTRO NOTICE ── */
+    .notice {
+      background: #fff8e6;
+      border-left: 4px solid #f4a51e;
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+      margin-bottom: 48px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .notice-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .notice p {
+      font-size: .95rem;
+      color: #6b4a00;
+      line-height: 1.65;
+    }
+
+    .notice strong {
+      color: #4a3200;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--brand-line);
+      border-radius: 2px;
+    }
+
+    /* ── STEP CARDS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 0;
+      position: relative;
+      animation: fadeUp .5s ease both;
+    }
+
+    .step:nth-child(1)  { animation-delay: .05s }
+    .step:nth-child(2)  { animation-delay: .10s }
+    .step:nth-child(3)  { animation-delay: .15s }
+    .step:nth-child(4)  { animation-delay: .20s }
+    .step:nth-child(5)  { animation-delay: .25s }
+    .step:nth-child(6)  { animation-delay: .30s }
+    .step:nth-child(7)  { animation-delay: .35s }
+    .step:nth-child(8)  { animation-delay: .40s }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* left spine */
+    .step-spine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 56px;
+      flex-shrink: 0;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--brand-accent);
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(46,134,222,.35);
+      z-index: 1;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .step:hover .step-num {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(46,134,222,.5);
+    }
+
+    .step-line {
+      width: 2px;
+      flex: 1;
+      background: linear-gradient(to bottom, var(--brand-accent), var(--brand-line));
+      margin: 6px 0;
+    }
+
+    .step:last-child .step-line {
+      display: none;
+    }
+
+    /* card body */
+    .step-body {
+      background: var(--brand-white);
+      border: 1px solid var(--brand-line);
+      border-radius: var(--step-radius);
+      padding: 22px 28px;
+      margin-left: 16px;
+      margin-bottom: 16px;
+      flex: 1;
+      box-shadow: var(--card-shadow);
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+      cursor: default;
+    }
+
+    .step:hover .step-body {
+      border-color: var(--brand-accent);
+      box-shadow: 0 12px 40px rgba(46,134,222,.12);
+      transform: translateX(4px);
+    }
+
+    .step-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brand-accent);
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: .92rem;
+      color: #4a6580;
+      line-height: 1.65;
+    }
+
+    .step-icon {
+      float: right;
+      font-size: 1.8rem;
+      margin-left: 16px;
+      opacity: .65;
+    }
+
+    /* ── COMPLETION BANNER ── */
+    .done-banner {
+      margin-top: 48px;
+      background: linear-gradient(135deg, #e6f7ec, #d0f0dc);
+      border: 1px solid #a0ddb5;
+      border-radius: 14px;
+      padding: 30px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .done-icon {
+      font-size: 2.6rem;
+      flex-shrink: 0;
+    }
+
+    .done-text h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a5c32;
+      margin-bottom: 6px;
+    }
+
+    .done-text p {
+      font-size: .9rem;
+      color: #2d7a4f;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brand-dark);
+      color: var(--brand-muted);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: .82rem;
+      line-height: 1.7;
+    }
+
+    footer a {
+      color: var(--brand-accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footer-logo {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      color: var(--brand-white);
+      font-size: 1rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .footer-logo span { color: var(--brand-accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 0 20px; }
+      .hero  { padding: 44px 20px 40px; }
+      .step-body { padding: 18px 18px; }
+      .done-banner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <div class="logo-wrap">
+    <!--
+      Replace the src below with the actual logo file path or URL.
+      E.g.: src="assigna-logo.png"
+    -->
+    <img
+      class="logo-img"
+      src="https://www.assignasolution.com/favicon.ico"
+      alt="Assigna Solution Logo"
+      onerror="this.style.display='none'"
+    />
+    <div>
+      <div class="logo-text">Assigna <span>Solution</span></div>
+    </div>
+  </div>
+  <div class="header-tag">Internal Guide</div>
+</header>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Internal Instructions</div>
+    <h1>Remove File <em>Properties</em><br/>Before Uploading Your Assignment</h1>
+    <p>Follow the steps below carefully to strip personal metadata from your file before submission. This ensures your identity and device information are not embedded in the document you upload.</p>
+  </div>
+</section>
+
+<!-- ══════════════ CONTENT ══════════════ -->
+<div class="container">
+
+  <!-- Notice -->
+  <div class="notice">
+    <div class="notice-icon">⚠️</div>
+    <p><strong>Important:</strong> Please complete all steps on your <strong>PC or Laptop</strong> (Windows OS). This process removes hidden metadata — such as author name, device details, and edit history — from your file before it is submitted.</p>
+  </div>
+
+  <div class="section-title">Step-by-Step Instructions</div>
+
+  <!-- Steps -->
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">💾</span>
+        <div class="step-label">Step 1</div>
+        <div class="step-title">Download the File to Your PC / Laptop</div>
+        <div class="step-desc">Locate the assignment file and save it locally to your computer. Make sure you know the folder where it is saved — you will need to find it in the next step.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">🖱️</span>
+        <div class="step-label">Step 2</div>
+        <div class="step-title">Right-Click on the Downloaded File</div>
+        <div class="step-desc">Navigate to the downloaded file in File Explorer. <strong>Right-click</strong> on it to open the context menu. A list of options will appear on your screen.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">📋</span>
+        <div class="step-label">Step 3</div>
+        <div class="step-title">Select "Properties" from the Menu</div>
+        <div class="step-desc">Scroll to the <strong>bottom</strong> of the context menu and click on <strong>Properties</strong>. A dialog box will open showing various details about the file.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">🗂️</span>
+        <div class="step-label">Step 4</div>
+        <div class="step-title">Go to the "Details" Tab</div>
+        <div class="step-desc">Inside the Properties window, click on the <strong>Details</strong> tab at the top. This tab shows all the metadata stored within the file, including author, device, and revision information.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">5</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">🔗</span>
+        <div class="step-label">Step 5</div>
+        <div class="step-title">Click on "Remove Properties and Personal Information"</div>
+        <div class="step-desc">At the bottom of the Details tab, you will see a link that reads <strong>"Remove Properties and Personal Information"</strong>. Click on it to open the removal tool.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">6</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">🛡️</span>
+        <div class="step-label">Step 6</div>
+        <div class="step-title">Select "Remove the Following Properties from This File"</div>
+        <div class="step-desc">A new dialog will appear. Choose the option labelled <strong>"Remove the following properties from this file"</strong> (not the copy option). This allows you to choose which properties to remove directly from the original file.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">7</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">☑️</span>
+        <div class="step-label">Step 7</div>
+        <div class="step-title">Click "Select All" to Choose Every Property</div>
+        <div class="step-desc">Click the <strong>Select All</strong> button to tick every checkbox in the list. This ensures that all metadata — without exception — is marked for removal from the file.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-spine">
+        <div class="step-num">8</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <span class="step-icon">✅</span>
+        <div class="step-label">Step 8</div>
+        <div class="step-title">Click "OK" to Apply</div>
+        <div class="step-desc">Click <strong>OK</strong> to confirm. The properties will be permanently removed from the file. Your file is now clean and ready to be uploaded as your assignment.</div>
+      </div>
+    </div>
+
+  </div><!-- /steps -->
+
+  <!-- Done Banner -->
+  <div class="done-banner">
+    <div class="done-icon">🎉</div>
+    <div class="done-text">
+      <h3>All Done — Your File is Ready to Upload!</h3>
+      <p>You have successfully removed all personal metadata from your file. You may now proceed to upload your assignment through the designated submission portal. If you face any difficulties, please reach out to your coordinator.</p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <span class="footer-logo">Assigna <span>Solution</span></span>
+  Internal Circulation Only &nbsp;·&nbsp;
+  <a href="https://www.assignasolution.com" target="_blank">www.assignasolution.com</a>
+  <br/>© 2025 Assigna Solution. All rights reserved.
+</footer>
+
+</body>
+</html>

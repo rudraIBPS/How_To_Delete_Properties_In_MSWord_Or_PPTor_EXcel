@@ -3,552 +3,312 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>How to Remove Properties – Assigna Solution</title>
+  <title>Internal Guides – Assigna Solution</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --brand-dark:   #0d1b2a;
       --brand-mid:    #1a3a5c;
       --brand-accent: #2e86de;
-      --brand-light:  #e8f4fd;
       --brand-white:  #ffffff;
       --brand-muted:  #6b8cae;
       --brand-line:   #d0e4f5;
       --step-radius:  14px;
       --card-shadow:  0 8px 32px rgba(13,27,42,.10);
+      --c1: #2e86de;
+      --c2: #e05a1a;
+      --c3: #198a6e;
+      --c4: #7b3fc4;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: #f0f6fc; color: var(--brand-dark); min-height: 100vh; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #f0f6fc;
-      color: var(--brand-dark);
-      min-height: 100vh;
-    }
+    /* HEADER */
+    header { background: var(--brand-dark); padding: 0 48px; display: flex; align-items: center; justify-content: space-between; height: 76px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(0,0,0,.28); }
+    .logo-wrap { display: flex; align-items: center; gap: 14px; }
+    .logo-img  { height: 44px; width: auto; object-fit: contain; border-radius: 6px; }
+    .logo-text { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.35rem; color: var(--brand-white); letter-spacing: -.5px; }
+    .logo-text span { color: var(--brand-accent); }
+    .header-tag { font-size: .78rem; color: var(--brand-muted); letter-spacing: .05em; text-transform: uppercase; }
 
-    /* ── HEADER ── */
-    header {
-      background: var(--brand-dark);
-      padding: 0 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 76px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 20px rgba(0,0,0,.25);
-    }
+    /* NAV TABS */
+    .nav-tabs { background: var(--brand-mid); display: flex; overflow-x: auto; scrollbar-width: none; border-bottom: 2px solid rgba(255,255,255,.07); }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab { padding: 14px 24px; font-size: .81rem; font-weight: 600; color: #7baed0; white-space: nowrap; cursor: pointer; text-decoration: none; border-bottom: 3px solid transparent; transition: color .2s, border-color .2s, background .2s; letter-spacing: .02em; }
+    .nav-tab:hover { color: #fff; background: rgba(255,255,255,.05); }
+    .nav-tab[data-c="1"]:hover, .nav-tab[data-c="1"].active { border-color: var(--c1); color: #fff; }
+    .nav-tab[data-c="2"]:hover, .nav-tab[data-c="2"].active { border-color: var(--c2); color: #fff; }
+    .nav-tab[data-c="3"]:hover, .nav-tab[data-c="3"].active { border-color: var(--c3); color: #fff; }
+    .nav-tab[data-c="4"]:hover, .nav-tab[data-c="4"].active { border-color: var(--c4); color: #fff; }
 
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    /* HERO */
+    .hero { padding: 60px 48px 56px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .hero-inner { position: relative; max-width: 760px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; border-radius: 100px; padding: 5px 16px; font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 22px; border: 1px solid; }
+    .hero-eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .hero h1 { font-family: 'Sora', sans-serif; font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 800; color: var(--brand-white); line-height: 1.18; margin-bottom: 16px; letter-spacing: -.5px; }
+    .hero h1 em { font-style: normal; }
+    .hero p { font-size: 1.05rem; color: rgba(255,255,255,.58); line-height: 1.7; max-width: 580px; }
 
-    /* Logo placeholder – replace <img> src with actual logo */
-    .logo-img {
-      height: 44px;
-      width: auto;
-      object-fit: contain;
-      border-radius: 6px;
-    }
+    .guide-section[data-g="1"] .hero { background: linear-gradient(135deg,#1a3a5c,#0d1b2a); }
+    .guide-section[data-g="1"] .hero-eyebrow { background: rgba(46,134,222,.15); border-color: rgba(46,134,222,.35); color: #7ec8f8; }
+    .guide-section[data-g="1"] .hero h1 em { color: var(--c1); }
 
-    .logo-text {
-      font-family: 'Sora', sans-serif;
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--brand-white);
-      letter-spacing: -.5px;
-    }
+    .guide-section[data-g="2"] .hero { background: linear-gradient(135deg,#5c2e0d,#2a1208); }
+    .guide-section[data-g="2"] .hero-eyebrow { background: rgba(224,90,26,.15); border-color: rgba(224,90,26,.35); color: #f4a86c; }
+    .guide-section[data-g="2"] .hero h1 em { color: #f4894e; }
 
-    .logo-text span {
-      color: var(--brand-accent);
-    }
+    .guide-section[data-g="3"] .hero { background: linear-gradient(135deg,#0d3d2e,#071f18); }
+    .guide-section[data-g="3"] .hero-eyebrow { background: rgba(25,138,110,.15); border-color: rgba(25,138,110,.35); color: #5ddbb8; }
+    .guide-section[data-g="3"] .hero h1 em { color: #3dcfaa; }
 
-    .header-tag {
-      font-family: 'DM Sans', sans-serif;
-      font-size: .78rem;
-      font-weight: 400;
-      color: var(--brand-muted);
-      letter-spacing: .05em;
-      text-transform: uppercase;
-    }
+    .guide-section[data-g="4"] .hero { background: linear-gradient(135deg,#2d1560,#130a2e); }
+    .guide-section[data-g="4"] .hero-eyebrow { background: rgba(123,63,196,.15); border-color: rgba(123,63,196,.35); color: #c49af8; }
+    .guide-section[data-g="4"] .hero h1 em { color: #b87af6; }
 
-    /* ── HERO BAND ── */
-    .hero {
-      background: linear-gradient(135deg, var(--brand-mid) 0%, var(--brand-dark) 100%);
-      padding: 60px 48px 56px;
-      position: relative;
-      overflow: hidden;
-    }
+    /* CONTAINER */
+    .container { max-width: 860px; margin: 0 auto; padding: 52px 24px 72px; }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232e86de' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
+    /* NOTICE */
+    .notice { border-radius: 0 10px 10px 0; padding: 18px 22px; margin-bottom: 44px; display: flex; gap: 14px; align-items: flex-start; border-left: 4px solid; }
+    .notice-icon { font-size: 1.4rem; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+    .notice p { font-size: .93rem; line-height: 1.65; }
+    .guide-section[data-g="1"] .notice { background: #fff8e6; border-color: #f4a51e; color: #6b4a00; }
+    .guide-section[data-g="2"] .notice { background: #fff3ed; border-color: var(--c2); color: #6b2a00; }
+    .guide-section[data-g="3"] .notice { background: #edfaf5; border-color: var(--c3); color: #0d4a39; }
+    .guide-section[data-g="4"] .notice { background: #f5eeff; border-color: var(--c4); color: #3a1a6b; }
 
-    .hero-inner {
-      position: relative;
-      max-width: 760px;
-    }
+    /* SECTION TITLE */
+    .section-title { font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
+    .section-title::after { content: ''; flex: 1; height: 2px; background: var(--brand-line); border-radius: 2px; }
 
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(46,134,222,.15);
-      border: 1px solid rgba(46,134,222,.3);
-      border-radius: 100px;
-      padding: 5px 16px;
-      font-size: .78rem;
-      font-weight: 600;
-      color: #7ec8f8;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      margin-bottom: 22px;
-    }
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; }
+    .step { display: flex; position: relative; animation: fadeUp .5s ease both; }
+    .step:nth-child(1)  { animation-delay:.05s } .step:nth-child(2)  { animation-delay:.10s }
+    .step:nth-child(3)  { animation-delay:.15s } .step:nth-child(4)  { animation-delay:.20s }
+    .step:nth-child(5)  { animation-delay:.25s } .step:nth-child(6)  { animation-delay:.30s }
+    .step:nth-child(7)  { animation-delay:.35s } .step:nth-child(8)  { animation-delay:.40s }
+    .step:nth-child(9)  { animation-delay:.45s } .step:nth-child(10) { animation-delay:.50s }
+    .step:nth-child(11) { animation-delay:.55s } .step:nth-child(12) { animation-delay:.60s }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
 
-    .hero-eyebrow::before {
-      content: '';
-      width: 7px; height: 7px;
-      background: #7ec8f8;
-      border-radius: 50%;
-    }
+    .step-spine { display: flex; flex-direction: column; align-items: center; width: 56px; flex-shrink: 0; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; color: #fff; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; transition: transform .2s, box-shadow .2s; }
+    .step:hover .step-num { transform: scale(1.1); }
+    .step-line { width: 2px; flex: 1; margin: 6px 0; }
+    .step:last-child .step-line { display: none; }
 
-    .hero h1 {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 800;
-      color: var(--brand-white);
-      line-height: 1.18;
-      margin-bottom: 16px;
-      letter-spacing: -.5px;
-    }
+    .guide-section[data-g="1"] .step-num  { background: var(--c1); box-shadow: 0 4px 14px rgba(46,134,222,.35); }
+    .guide-section[data-g="1"] .step:hover .step-num { box-shadow: 0 6px 20px rgba(46,134,222,.55); }
+    .guide-section[data-g="1"] .step-line { background: linear-gradient(to bottom,var(--c1),var(--brand-line)); }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--brand-accent);
-    }
+    .guide-section[data-g="2"] .step-num  { background: var(--c2); box-shadow: 0 4px 14px rgba(224,90,26,.35); }
+    .guide-section[data-g="2"] .step:hover .step-num { box-shadow: 0 6px 20px rgba(224,90,26,.55); }
+    .guide-section[data-g="2"] .step-line { background: linear-gradient(to bottom,var(--c2),var(--brand-line)); }
 
-    .hero p {
-      font-size: 1.05rem;
-      color: #9bbdd8;
-      line-height: 1.7;
-      max-width: 580px;
-    }
+    .guide-section[data-g="3"] .step-num  { background: var(--c3); box-shadow: 0 4px 14px rgba(25,138,110,.35); }
+    .guide-section[data-g="3"] .step:hover .step-num { box-shadow: 0 6px 20px rgba(25,138,110,.55); }
+    .guide-section[data-g="3"] .step-line { background: linear-gradient(to bottom,var(--c3),var(--brand-line)); }
 
-    /* ── MAIN CONTAINER ── */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 56px 24px 80px;
-    }
+    .guide-section[data-g="4"] .step-num  { background: var(--c4); box-shadow: 0 4px 14px rgba(123,63,196,.35); }
+    .guide-section[data-g="4"] .step:hover .step-num { box-shadow: 0 6px 20px rgba(123,63,196,.55); }
+    .guide-section[data-g="4"] .step-line { background: linear-gradient(to bottom,var(--c4),var(--brand-line)); }
 
-    /* ── INTRO NOTICE ── */
-    .notice {
-      background: #fff8e6;
-      border-left: 4px solid #f4a51e;
-      border-radius: 0 10px 10px 0;
-      padding: 18px 22px;
-      margin-bottom: 48px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
+    .step-body { background: var(--brand-white); border: 1px solid var(--brand-line); border-radius: var(--step-radius); padding: 20px 26px; margin-left: 16px; margin-bottom: 16px; flex: 1; box-shadow: var(--card-shadow); transition: border-color .2s, box-shadow .2s, transform .2s; cursor: default; }
+    .guide-section[data-g="1"] .step:hover .step-body { border-color:var(--c1); box-shadow:0 12px 40px rgba(46,134,222,.12); transform:translateX(4px); }
+    .guide-section[data-g="2"] .step:hover .step-body { border-color:var(--c2); box-shadow:0 12px 40px rgba(224,90,26,.12); transform:translateX(4px); }
+    .guide-section[data-g="3"] .step:hover .step-body { border-color:var(--c3); box-shadow:0 12px 40px rgba(25,138,110,.12); transform:translateX(4px); }
+    .guide-section[data-g="4"] .step:hover .step-body { border-color:var(--c4); box-shadow:0 12px 40px rgba(123,63,196,.12); transform:translateX(4px); }
 
-    .notice-icon {
-      font-size: 1.4rem;
-      line-height: 1;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
+    .step-label { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px; }
+    .guide-section[data-g="1"] .step-label { color: var(--c1); }
+    .guide-section[data-g="2"] .step-label { color: var(--c2); }
+    .guide-section[data-g="3"] .step-label { color: var(--c3); }
+    .guide-section[data-g="4"] .step-label { color: var(--c4); }
 
-    .notice p {
-      font-size: .95rem;
-      color: #6b4a00;
-      line-height: 1.65;
-    }
+    .step-title { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 7px; }
+    .step-desc  { font-size: .91rem; color: #4a6580; line-height: 1.65; }
+    .step-icon  { float: right; font-size: 1.7rem; margin-left: 14px; opacity: .6; }
 
-    .notice strong {
-      color: #4a3200;
-    }
+    /* DONE BANNER */
+    .done-banner { margin-top: 44px; border-radius: 14px; padding: 28px 30px; display: flex; align-items: center; gap: 18px; border: 1px solid; }
+    .done-icon { font-size: 2.4rem; flex-shrink: 0; }
+    .done-text h3 { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .done-text p  { font-size: .88rem; line-height: 1.6; }
+    .guide-section[data-g="1"] .done-banner { background: linear-gradient(135deg,#e6f7ec,#d0f0dc); border-color: #a0ddb5; }
+    .guide-section[data-g="1"] .done-text h3 { color: #1a5c32; } .guide-section[data-g="1"] .done-text p { color: #2d7a4f; }
+    .guide-section[data-g="2"] .done-banner { background: linear-gradient(135deg,#fff3e6,#ffe0cc); border-color: #f4b080; }
+    .guide-section[data-g="2"] .done-text h3 { color: #7a2e00; } .guide-section[data-g="2"] .done-text p { color: #a04010; }
+    .guide-section[data-g="3"] .done-banner { background: linear-gradient(135deg,#e6faf4,#c8f5e6); border-color: #7dd9b8; }
+    .guide-section[data-g="3"] .done-text h3 { color: #0d4a39; } .guide-section[data-g="3"] .done-text p { color: #196a52; }
+    .guide-section[data-g="4"] .done-banner { background: linear-gradient(135deg,#f3eeff,#e6d5ff); border-color: #c09af0; }
+    .guide-section[data-g="4"] .done-text h3 { color: #3a1a6b; } .guide-section[data-g="4"] .done-text p { color: #5c2ea0; }
 
-    /* ── SECTION TITLE ── */
-    .section-title {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--brand-dark);
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    /* DIVIDER */
+    .guide-divider { height: 6px; background: linear-gradient(90deg,var(--brand-line),transparent); }
 
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 2px;
-      background: var(--brand-line);
-      border-radius: 2px;
-    }
-
-    /* ── STEP CARDS ── */
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .step {
-      display: flex;
-      gap: 0;
-      position: relative;
-      animation: fadeUp .5s ease both;
-    }
-
-    .step:nth-child(1)  { animation-delay: .05s }
-    .step:nth-child(2)  { animation-delay: .10s }
-    .step:nth-child(3)  { animation-delay: .15s }
-    .step:nth-child(4)  { animation-delay: .20s }
-    .step:nth-child(5)  { animation-delay: .25s }
-    .step:nth-child(6)  { animation-delay: .30s }
-    .step:nth-child(7)  { animation-delay: .35s }
-    .step:nth-child(8)  { animation-delay: .40s }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* left spine */
-    .step-spine {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 56px;
-      flex-shrink: 0;
-    }
-
-    .step-num {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--brand-accent);
-      color: #fff;
-      font-family: 'Sora', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(46,134,222,.35);
-      z-index: 1;
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .step:hover .step-num {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(46,134,222,.5);
-    }
-
-    .step-line {
-      width: 2px;
-      flex: 1;
-      background: linear-gradient(to bottom, var(--brand-accent), var(--brand-line));
-      margin: 6px 0;
-    }
-
-    .step:last-child .step-line {
-      display: none;
-    }
-
-    /* card body */
-    .step-body {
-      background: var(--brand-white);
-      border: 1px solid var(--brand-line);
-      border-radius: var(--step-radius);
-      padding: 22px 28px;
-      margin-left: 16px;
-      margin-bottom: 16px;
-      flex: 1;
-      box-shadow: var(--card-shadow);
-      transition: border-color .2s, box-shadow .2s, transform .2s;
-      cursor: default;
-    }
-
-    .step:hover .step-body {
-      border-color: var(--brand-accent);
-      box-shadow: 0 12px 40px rgba(46,134,222,.12);
-      transform: translateX(4px);
-    }
-
-    .step-label {
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--brand-accent);
-      margin-bottom: 6px;
-    }
-
-    .step-title {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--brand-dark);
-      margin-bottom: 8px;
-    }
-
-    .step-desc {
-      font-size: .92rem;
-      color: #4a6580;
-      line-height: 1.65;
-    }
-
-    .step-icon {
-      float: right;
-      font-size: 1.8rem;
-      margin-left: 16px;
-      opacity: .65;
-    }
-
-    /* ── COMPLETION BANNER ── */
-    .done-banner {
-      margin-top: 48px;
-      background: linear-gradient(135deg, #e6f7ec, #d0f0dc);
-      border: 1px solid #a0ddb5;
-      border-radius: 14px;
-      padding: 30px 32px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .done-icon {
-      font-size: 2.6rem;
-      flex-shrink: 0;
-    }
-
-    .done-text h3 {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1a5c32;
-      margin-bottom: 6px;
-    }
-
-    .done-text p {
-      font-size: .9rem;
-      color: #2d7a4f;
-      line-height: 1.6;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--brand-dark);
-      color: var(--brand-muted);
-      text-align: center;
-      padding: 28px 24px;
-      font-size: .82rem;
-      line-height: 1.7;
-    }
-
-    footer a {
-      color: var(--brand-accent);
-      text-decoration: none;
-    }
-
+    /* FOOTER */
+    footer { background: var(--brand-dark); color: var(--brand-muted); text-align: center; padding: 28px 24px; font-size: .82rem; line-height: 1.7; }
+    footer a { color: var(--brand-accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-
-    .footer-logo {
-      font-family: 'Sora', sans-serif;
-      font-weight: 800;
-      color: var(--brand-white);
-      font-size: 1rem;
-      margin-bottom: 6px;
-      display: block;
-    }
-
+    .footer-logo { font-family: 'Sora', sans-serif; font-weight: 800; color: var(--brand-white); font-size: 1rem; margin-bottom: 6px; display: block; }
     .footer-logo span { color: var(--brand-accent); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
-      header { padding: 0 20px; }
-      .hero  { padding: 44px 20px 40px; }
-      .step-body { padding: 18px 18px; }
-      .done-banner { flex-direction: column; text-align: center; }
+      header { padding: 0 20px; } .hero { padding: 44px 20px 40px; }
+      .step-body { padding: 16px 16px; } .done-banner { flex-direction: column; text-align: center; }
+      .nav-tab { padding: 12px 14px; font-size: .75rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════ HEADER ══════════════ -->
+<!-- HEADER -->
 <header>
   <div class="logo-wrap">
-    <!--
-      Replace the src below with the actual logo file path or URL.
-      E.g.: src="assigna-logo.png"
-    -->
-    <img
-      class="logo-img"
-      src="https://www.assignasolution.com/favicon.ico"
-      alt="Assigna Solution Logo"
-      onerror="this.style.display='none'"
-    />
-    <div>
-      <div class="logo-text">Assigna <span>Solution</span></div>
-    </div>
+    <img class="logo-img" src="https://www.assignasolution.com/favicon.ico" alt="Assigna Solution Logo" onerror="this.style.display='none'"/>
+    <div class="logo-text">Assigna <span>Solution</span></div>
   </div>
-  <div class="header-tag">Internal Guide</div>
+  <div class="header-tag">Internal Guides</div>
 </header>
 
-<!-- ══════════════ HERO ══════════════ -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Internal Instructions</div>
-    <h1>Remove File <em>Properties</em><br/>Before Uploading Your Assignment</h1>
-    <p>Follow the steps below carefully to strip personal metadata from your file before submission. This ensures your identity and device information are not embedded in the document you upload.</p>
+<!-- NAV TABS -->
+<nav class="nav-tabs">
+  <a class="nav-tab" data-c="1" href="#guide1">📁 Remove Properties</a>
+  <a class="nav-tab" data-c="2" href="#guide2">📊 PowerPoint Design</a>
+  <a class="nav-tab" data-c="3" href="#guide3">📚 Citation & Referencing</a>
+  <a class="nav-tab" data-c="4" href="#guide4">🧾 Freelance Invoice</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════
+     GUIDE 1 — REMOVE PROPERTIES
+═══════════════════════════════════════ -->
+<section class="guide-section" data-g="1" id="guide1">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Guide 01 · File Management</div>
+      <h1>Remove File <em>Properties</em><br/>Before Uploading Your Assignment</h1>
+      <p>Follow these steps to strip personal metadata from your file before submission — your identity and device information should never be embedded in what you upload.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="notice"><div class="notice-icon">⚠️</div><p><strong>Important:</strong> Complete all steps on a <strong>PC or Laptop running Windows</strong>. This removes hidden metadata such as author name, device details, and edit history from your file before it is submitted.</p></div>
+    <div class="section-title">Step-by-Step Instructions</div>
+    <div class="steps">
+      <div class="step"><div class="step-spine"><div class="step-num">1</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">💾</span><div class="step-label">Step 1</div><div class="step-title">Download the File to Your PC / Laptop</div><div class="step-desc">Locate the assignment file and save it locally to your computer. Note the folder — you will need to find it in the next step.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">2</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🖱️</span><div class="step-label">Step 2</div><div class="step-title">Right-Click on the Downloaded File</div><div class="step-desc">Navigate to the file in File Explorer. <strong>Right-click</strong> on it to open the context menu.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">3</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📋</span><div class="step-label">Step 3</div><div class="step-title">Select "Properties" from the Menu</div><div class="step-desc">Scroll to the <strong>bottom</strong> of the context menu and click <strong>Properties</strong>. A dialog box will open showing file details.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">4</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🗂️</span><div class="step-label">Step 4</div><div class="step-title">Go to the "Details" Tab</div><div class="step-desc">In the Properties window, click the <strong>Details</strong> tab. This displays all metadata — author, device, revision history, and more.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">5</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔗</span><div class="step-label">Step 5</div><div class="step-title">Click "Remove Properties and Personal Information"</div><div class="step-desc">At the bottom of the Details tab, click the link <strong>"Remove Properties and Personal Information"</strong> to open the removal tool.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">6</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🛡️</span><div class="step-label">Step 6</div><div class="step-title">Select "Remove the Following Properties from This File"</div><div class="step-desc">Choose the option <strong>"Remove the following properties from this file"</strong> — not the copy option — so changes apply directly to the original file.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">7</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">☑️</span><div class="step-label">Step 7</div><div class="step-title">Click "Select All"</div><div class="step-desc">Click <strong>Select All</strong> to tick every checkbox in the list — marking all metadata for removal without exception.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">8</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">✅</span><div class="step-label">Step 8</div><div class="step-title">Click "OK" to Apply</div><div class="step-desc">Click <strong>OK</strong> to confirm. All properties are permanently removed. Your file is now clean and ready to upload.</div></div></div>
+    </div>
+    <div class="done-banner"><div class="done-icon">🎉</div><div class="done-text"><h3>All Done — Your File is Ready to Upload!</h3><p>You have successfully removed all personal metadata. Proceed to upload through the designated portal. Contact your coordinator if you face any difficulties.</p></div></div>
   </div>
 </section>
 
-<!-- ══════════════ CONTENT ══════════════ -->
-<div class="container">
+<div class="guide-divider"></div>
 
-  <!-- Notice -->
-  <div class="notice">
-    <div class="notice-icon">⚠️</div>
-    <p><strong>Important:</strong> Please complete all steps on your <strong>PC or Laptop</strong> (Windows OS). This process removes hidden metadata — such as author name, device details, and edit history — from your file before it is submitted.</p>
-  </div>
-
-  <div class="section-title">Step-by-Step Instructions</div>
-
-  <!-- Steps -->
-  <div class="steps">
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">1</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">💾</span>
-        <div class="step-label">Step 1</div>
-        <div class="step-title">Download the File to Your PC / Laptop</div>
-        <div class="step-desc">Locate the assignment file and save it locally to your computer. Make sure you know the folder where it is saved — you will need to find it in the next step.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">2</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">🖱️</span>
-        <div class="step-label">Step 2</div>
-        <div class="step-title">Right-Click on the Downloaded File</div>
-        <div class="step-desc">Navigate to the downloaded file in File Explorer. <strong>Right-click</strong> on it to open the context menu. A list of options will appear on your screen.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">3</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">📋</span>
-        <div class="step-label">Step 3</div>
-        <div class="step-title">Select "Properties" from the Menu</div>
-        <div class="step-desc">Scroll to the <strong>bottom</strong> of the context menu and click on <strong>Properties</strong>. A dialog box will open showing various details about the file.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">4</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">🗂️</span>
-        <div class="step-label">Step 4</div>
-        <div class="step-title">Go to the "Details" Tab</div>
-        <div class="step-desc">Inside the Properties window, click on the <strong>Details</strong> tab at the top. This tab shows all the metadata stored within the file, including author, device, and revision information.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">5</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">🔗</span>
-        <div class="step-label">Step 5</div>
-        <div class="step-title">Click on "Remove Properties and Personal Information"</div>
-        <div class="step-desc">At the bottom of the Details tab, you will see a link that reads <strong>"Remove Properties and Personal Information"</strong>. Click on it to open the removal tool.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">6</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">🛡️</span>
-        <div class="step-label">Step 6</div>
-        <div class="step-title">Select "Remove the Following Properties from This File"</div>
-        <div class="step-desc">A new dialog will appear. Choose the option labelled <strong>"Remove the following properties from this file"</strong> (not the copy option). This allows you to choose which properties to remove directly from the original file.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">7</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">☑️</span>
-        <div class="step-label">Step 7</div>
-        <div class="step-title">Click "Select All" to Choose Every Property</div>
-        <div class="step-desc">Click the <strong>Select All</strong> button to tick every checkbox in the list. This ensures that all metadata — without exception — is marked for removal from the file.</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-spine">
-        <div class="step-num">8</div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step-body">
-        <span class="step-icon">✅</span>
-        <div class="step-label">Step 8</div>
-        <div class="step-title">Click "OK" to Apply</div>
-        <div class="step-desc">Click <strong>OK</strong> to confirm. The properties will be permanently removed from the file. Your file is now clean and ready to be uploaded as your assignment.</div>
-      </div>
-    </div>
-
-  </div><!-- /steps -->
-
-  <!-- Done Banner -->
-  <div class="done-banner">
-    <div class="done-icon">🎉</div>
-    <div class="done-text">
-      <h3>All Done — Your File is Ready to Upload!</h3>
-      <p>You have successfully removed all personal metadata from your file. You may now proceed to upload your assignment through the designated submission portal. If you face any difficulties, please reach out to your coordinator.</p>
+<!-- ═══════════════════════════════════════
+     GUIDE 2 — POWERPOINT DESIGN
+═══════════════════════════════════════ -->
+<section class="guide-section" data-g="2" id="guide2">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Guide 02 · Presentation Skills</div>
+      <h1>How to Design a <em>PowerPoint Presentation</em> Efficiently</h1>
+      <p>A well-designed presentation communicates ideas clearly and professionally. Follow these steps to plan, structure, and design slides that make a lasting impact.</p>
     </div>
   </div>
+  <div class="container">
+    <div class="notice"><div class="notice-icon">💡</div><p><strong>Pro Tip:</strong> Great presentations are <strong>simple, visual, and consistent</strong>. Avoid cluttering slides with too much text — let visuals and headlines do the talking, and use your spoken words for detail.</p></div>
+    <div class="section-title">Step-by-Step Instructions</div>
+    <div class="steps">
+      <div class="step"><div class="step-spine"><div class="step-num">1</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🎯</span><div class="step-label">Step 1</div><div class="step-title">Define Your Purpose and Audience</div><div class="step-desc">Before opening PowerPoint, ask: <strong>What is the goal?</strong> and <strong>Who is the audience?</strong> A client pitch needs a different tone than an internal report. Clarity of purpose shapes every design decision you make.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">2</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🗺️</span><div class="step-label">Step 2</div><div class="step-title">Outline Your Content First (Before Designing)</div><div class="step-desc">Write out the key points you want to cover before touching PowerPoint. Group them into a clear flow: <strong>Introduction → Context/Problem → Main Points → Conclusion/Call to Action.</strong> This prevents rebuilding slides after they are made.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">3</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🎨</span><div class="step-label">Step 3</div><div class="step-title">Choose a Professional Theme or Template</div><div class="step-desc">In PowerPoint go to <strong>Design → Themes</strong> and pick a clean theme. Or use a free template from <strong>slidesgo.com</strong> or <strong>canva.com</strong>. Stick to <strong>2–3 colours</strong> only — one primary, one accent, one neutral background.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">4</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔤</span><div class="step-label">Step 4</div><div class="step-title">Set Consistent Fonts — One for Headings, One for Body</div><div class="step-desc">Go to <strong>Design → Fonts</strong>. Use a bold display font for headings (e.g. Montserrat, Raleway) and a clean readable font for body (e.g. Calibri, Open Sans). <strong>Never use more than 2 font families</strong> in one deck.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">5</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📐</span><div class="step-label">Step 5</div><div class="step-title">Use the Slide Master for Global Consistency</div><div class="step-desc">Go to <strong>View → Slide Master</strong> to set fonts, colours, and logo placement across all slides globally. Add your logo in the Slide Master so it appears on every slide automatically — no manual copy-pasting needed.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">6</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📝</span><div class="step-label">Step 6</div><div class="step-title">Apply the One Idea Per Slide Rule</div><div class="step-desc">Each slide should communicate <strong>one clear idea</strong>. Use a short headline (max 8 words) and no more than <strong>3–5 bullet points</strong> per slide. If a slide feels crowded, split it into two slides.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">7</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🖼️</span><div class="step-label">Step 7</div><div class="step-title">Replace Text with Visuals Where Possible</div><div class="step-desc">Use <strong>icons, charts, images, and infographics</strong> instead of paragraphs. Insert icons via <strong>Insert → Icons</strong>. For data, use the built-in Chart tool. Free images: <strong>unsplash.com</strong> or <strong>pexels.com</strong>.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">8</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">✨</span><div class="step-label">Step 8</div><div class="step-title">Add Subtle Animations — Don't Overdo It</div><div class="step-desc">Use <strong>Fade</strong> or <strong>Appear</strong> animations to reveal bullet points progressively. Go to <strong>Animations → Add Animation</strong>. Avoid flashy effects like "Spin" or "Bounce" — they distract from your message.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">9</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔍</span><div class="step-label">Step 9</div><div class="step-title">Proofread and Review in Slideshow Mode</div><div class="step-desc">Press <strong>F5</strong> to run the full slideshow. Check spelling, alignment, and logical flow between slides. Ask a colleague to review before final submission.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">10</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">💾</span><div class="step-label">Step 10</div><div class="step-title">Save in the Correct Format</div><div class="step-desc">Save as <strong>.pptx</strong> for editing. Export as <strong>PDF</strong> (File → Export → Create PDF) for sharing — this prevents formatting changes when opened on different devices.</div></div></div>
+    </div>
+    <div class="done-banner"><div class="done-icon">📊</div><div class="done-text"><h3>Your Presentation is Ready!</h3><p>A consistent theme, clear structure, and minimal text will make your deck look polished and professional. Remember — great slides support your speech, they don't replace it.</p></div></div>
+  </div>
+</section>
 
-</div><!-- /container -->
+<div class="guide-divider"></div>
 
-<!-- ══════════════ FOOTER ══════════════ -->
+<!-- ═══════════════════════════════════════
+     GUIDE 3 — CITATION & REFERENCING
+═══════════════════════════════════════ -->
+<section class="guide-section" data-g="3" id="guide3">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Guide 03 · Academic Writing</div>
+      <h1>How to Make <em>Citations &amp; References</em><br/>Using Google Scholar &amp; MS Word</h1>
+      <p>Proper citation is essential in academic and professional work. This guide walks you through finding sources on Google Scholar and inserting formatted references automatically in Microsoft Word.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="notice"><div class="notice-icon">📌</div><p><strong>Note:</strong> Always confirm which referencing style is required — <strong>APA, Harvard, MLA, or Chicago</strong> are most common. Your institution or client will specify the style. This guide uses <strong>APA 7th Edition</strong> as the example.</p></div>
+    <div class="section-title">Step-by-Step Instructions</div>
+    <div class="steps">
+      <div class="step"><div class="step-spine"><div class="step-num">1</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔍</span><div class="step-label">Step 1</div><div class="step-title">Go to Google Scholar</div><div class="step-desc">Open your browser and navigate to <strong>scholar.google.com</strong>. This is a free academic search engine that indexes peer-reviewed papers, theses, books, and conference articles from reputable sources worldwide.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">2</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔎</span><div class="step-label">Step 2</div><div class="step-title">Search for Your Topic Using Specific Keywords</div><div class="step-desc">Type specific keywords into the search bar — e.g., instead of "climate change", try <strong>"climate change effect on crop yield developing countries"</strong>. Use the <strong>date filter</strong> in the left sidebar to find recent publications within the past 5 years.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">3</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📄</span><div class="step-label">Step 3</div><div class="step-title">Select a Relevant Source and Note Its Details</div><div class="step-desc">Click an article title to read its abstract. Confirm it is relevant to your work. Note the <strong>author name(s), publication year, journal name, volume, issue, and page numbers</strong> — all needed for your reference.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">4</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🗃️</span><div class="step-label">Step 4</div><div class="step-title">Use the "Cite" Button on Google Scholar</div><div class="step-desc">Below each search result, click the <strong>quotation mark icon ("Cite")</strong>. A popup displays the citation in APA, MLA, Chicago, Harvard, and Vancouver formats. <strong>Copy the citation in your required style</strong> directly from this popup.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">5</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📝</span><div class="step-label">Step 5</div><div class="step-title">Open Microsoft Word and Click the References Tab</div><div class="step-desc">Open your document in MS Word. Click the <strong>References</strong> tab in the top ribbon. This tab contains all the tools you need to manage in-text citations, footnotes, and your bibliography.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">6</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">⚙️</span><div class="step-label">Step 6</div><div class="step-title">Set Your Citation Style in MS Word</div><div class="step-desc">In the References tab, find the <strong>Style dropdown</strong> (next to "Insert Citation"). Select your required style — e.g., <strong>APA</strong>. Word will now automatically format all citations and the reference list in that style.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">7</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">➕</span><div class="step-label">Step 7</div><div class="step-title">Insert a New Source Using "Insert Citation"</div><div class="step-desc">Place your cursor at the point in the text where you want to cite. Click <strong>Insert Citation → Add New Source</strong>. Fill in the form with details from Step 3, then click OK. Word inserts the correctly formatted in-text citation automatically.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">8</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📚</span><div class="step-label">Step 8</div><div class="step-title">Generate Your Reference List / Bibliography</div><div class="step-desc">At the end of your document, click where you want the reference list to appear. In the References tab, click <strong>Bibliography → References</strong>. Word auto-generates the complete reference list from all your inserted citations.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">9</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔄</span><div class="step-label">Step 9</div><div class="step-title">Update the Reference List After Adding More Citations</div><div class="step-desc">After adding new citations, <strong>right-click the bibliography</strong> at the end of your document and select <strong>"Update Field"</strong>. Word refreshes the list to include all newly added sources automatically.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">10</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">✅</span><div class="step-label">Step 10</div><div class="step-title">Review and Verify All References</div><div class="step-desc">Manually check every citation against the original source. Confirm that <strong>every in-text citation has a matching reference list entry</strong> and vice versa. Tools like <strong>Zotero</strong> or <strong>Mendeley</strong> can help manage large reference libraries.</div></div></div>
+    </div>
+    <div class="done-banner"><div class="done-icon">📚</div><div class="done-text"><h3>References Complete — Well-Cited Work Ahead!</h3><p>Accurate citations build credibility and protect you from plagiarism. Always verify formatting against your institution's guidelines. For large projects, Zotero or Mendeley are excellent free reference managers.</p></div></div>
+  </div>
+</section>
+
+<div class="guide-divider"></div>
+
+<!-- ═══════════════════════════════════════
+     GUIDE 4 — FREELANCE INVOICE
+═══════════════════════════════════════ -->
+<section class="guide-section" data-g="4" id="guide4">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Guide 04 · Freelancing</div>
+      <h1>How to Format a <em>Freelance Invoice</em><br/>Professionally</h1>
+      <p>A professional invoice ensures you get paid on time and protects you legally. Follow this guide to create clear, complete, and professional invoices for every client engagement.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="notice"><div class="notice-icon">⚖️</div><p><strong>Legal Note:</strong> An invoice is a legal document. Ensure all details are <strong>accurate and complete</strong>. Keep a copy of every invoice you send. Consult a tax professional for invoicing rules specific to your country or region.</p></div>
+    <div class="section-title">Step-by-Step Instructions</div>
+    <div class="steps">
+      <div class="step"><div class="step-spine"><div class="step-num">1</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📄</span><div class="step-label">Step 1</div><div class="step-title">Choose Your Invoicing Tool</div><div class="step-desc">Create invoices in <strong>Microsoft Word, Excel, Google Docs,</strong> or free platforms like <strong>Invoice Ninja, Wave, or Zoho Invoice</strong>. For beginners, a Word or Google Docs template is the easiest starting point — search "invoice template" in the Google Docs template gallery.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">2</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🏷️</span><div class="step-label">Step 2</div><div class="step-title">Add Your Freelancer / Business Details at the Top</div><div class="step-desc">Include: <strong>Your Full Name or Business Name, Address, Email, Phone Number,</strong> and if applicable, your <strong>Tax ID / GST / VAT number</strong>. This is your "seller" information and must appear on every invoice you send.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">3</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🔢</span><div class="step-label">Step 3</div><div class="step-title">Add a Unique Invoice Number</div><div class="step-desc">Every invoice must have a <strong>unique Invoice Number</strong> for tracking purposes. Use a format like <strong>INV-001</strong> or include the year: <strong>INV-2025-001</strong>. Numbers must be sequential and <strong>never repeated</strong> across different clients or projects.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">4</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📅</span><div class="step-label">Step 4</div><div class="step-title">Include Invoice Date and Payment Due Date</div><div class="step-desc">Add the <strong>Invoice Date</strong> (today's date) and a clear <strong>Due Date</strong>. Common terms are <strong>Net 7, Net 14, or Net 30</strong> — payment is due 7, 14, or 30 days from the invoice date. State this clearly, e.g., <em>"Payment due within 14 days."</em></div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">5</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">👤</span><div class="step-label">Step 5</div><div class="step-title">Add the Client's Details ("Bill To" Section)</div><div class="step-desc">Add a <strong>"Bill To"</strong> section with the <strong>Client's Name or Company Name, Address, and Email</strong>. Ensure the name exactly matches whoever processes the payment — this prevents disputes or payment delays.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">6</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📋</span><div class="step-label">Step 6</div><div class="step-title">List Services in an Itemised Table</div><div class="step-desc">Create a table with columns: <strong>Description | Quantity / Hours | Rate | Amount</strong>. List each service separately. Example: <em>"Blog Article Writing | 3 articles | £50 each | £150"</em>. Itemised invoices are far more professional and dispute-proof than lump-sum amounts.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">7</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🧮</span><div class="step-label">Step 7</div><div class="step-title">Calculate Subtotal, Tax, and Total Amount Due</div><div class="step-desc">Below the table add: <strong>Subtotal</strong> (sum of all items), <strong>Tax / VAT</strong> if applicable (state the percentage, e.g., 18% GST), and the <strong>Total Amount Due</strong> in bold. Always state the <strong>currency clearly</strong> (USD, GBP, INR, etc.).</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">8</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">🏦</span><div class="step-label">Step 8</div><div class="step-title">Add Your Payment Details</div><div class="step-desc">Include how you want to be paid: <strong>Bank Transfer</strong> (Account Name, Account Number, Sort Code / IFSC / IBAN / SWIFT), <strong>PayPal</strong> email, or <strong>UPI / Razorpay</strong> for Indian freelancers. The simpler you make payment, the faster you receive it.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">9</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📝</span><div class="step-label">Step 9</div><div class="step-title">Add Notes and Terms & Conditions</div><div class="step-desc">Include a brief notes section with: a <strong>late payment policy</strong> (e.g., "2% monthly fee on overdue amounts"), a <strong>thank you note</strong>, and any project-specific terms agreed with the client. This protects you legally if payment is delayed or disputed.</div></div></div>
+      <div class="step"><div class="step-spine"><div class="step-num">10</div><div class="step-line"></div></div><div class="step-body"><span class="step-icon">📤</span><div class="step-label">Step 10</div><div class="step-title">Export as PDF and Send to the Client</div><div class="step-desc">Always save as <strong>PDF</strong> (File → Export → PDF) before sending. Never send an editable Word or Excel file. Email with a professional subject line: <strong>"Invoice INV-001 – [Your Name / Service]"</strong>. Keep a copy filed by date and client name for your tax records.</div></div></div>
+    </div>
+    <div class="done-banner"><div class="done-icon">🧾</div><div class="done-text"><h3>Invoice Ready — You're Set to Get Paid!</h3><p>A complete, professional invoice builds trust with clients and speeds up payment. File all invoices by date and client for your tax records. Follow up politely if payment is not received by the due date.</p></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <span class="footer-logo">Assigna <span>Solution</span></span>
   Internal Circulation Only &nbsp;·&nbsp;
@@ -556,5 +316,19 @@
   <br/>© 2025 Assigna Solution. All rights reserved.
 </footer>
 
+<script>
+  const sections = document.querySelectorAll('.guide-section');
+  const tabs     = document.querySelectorAll('.nav-tab');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        tabs.forEach(t => t.classList.remove('active'));
+        const active = document.querySelector(`.nav-tab[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
